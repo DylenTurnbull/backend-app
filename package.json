@@ -1,0 +1,16 @@
+{
+  "name": "backend-app",
+  "version": "1.0.0",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["express", "backend", "api"],
+  "author": "",
+  "license": "ISC",
+  "description": "Simple Express.js backend API"
+}
