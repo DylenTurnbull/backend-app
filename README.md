@@ -33,6 +33,45 @@ A simple Node.js backend API with nginx reverse proxy, running as standalone Doc
    ./stop.sh
    ```
 
+## Docker Desktop Exercise
+
+1. Open Docker Desktop and navigate to the **NGINX** section under Extensions.
+2. Click the **+** button next to the **Server** label.
+3. In the configuration window, provide the following details:
+
+   - **Configuration File Name**: `app.conf`
+   - **Virtual Server Name**: `localhost`
+   - **Listen Port**: `80`
+   - **Upstream**: Select `my-backend:3000 (tcp)`
+
+4. Open the **Configuration Editor**.
+5. From the dropdown menu, select `/etc/nginx/conf.d/app.conf`.
+6. Copy and paste the following configuration into the editor, then click **Publish**:
+
+   ```nginx
+   server {
+       listen 80;
+       server_name localhost;
+       
+       root /usr/share/nginx/html;
+       index index.html;
+       
+       location / {
+           try_files $uri $uri/ =404;
+       }
+       
+       location /api/ {
+           proxy_pass http://my-backend:3000;
+           proxy_set_header Host $host;
+           proxy_set_header X-Real-IP $remote_addr;
+           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+           proxy_set_header X-Forwarded-Proto $scheme;
+       }
+   }
+   ```
+
+7. Refresh the page in your browser. The application should now be working.
+
 ## Manual Commands
 
 If you prefer to run commands manually:
